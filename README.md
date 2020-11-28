@@ -13,10 +13,10 @@ Then, add `ImageResizer` function on `webpack.mix.js`. like so:
 ```js
 let mix = require('laravel-mix')
 
-require('laravel-mix-image-size-checker')
+require('laravel-mix-image-resizer')
 
 mix
-  .ImageSizeResizer({
+  .ImageResizer({
     from: 'resources/assets/images',
     to: 'public/assets/images',
   })
