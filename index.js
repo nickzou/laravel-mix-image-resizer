@@ -54,7 +54,7 @@ class ImageResizer {
         })
         fs.copySync(from, to)
         const images = glob.sync(to + '/**/*').forEach((imagePath) => {
-            if (imagePath.match(/\.(jpe?g|png|gif)$/i) === null) {
+            if (imagePath.match(/\.(jpe?g|png|gif)$/i) === null || imagePath.match('resized')) {
                 return
             }
 
