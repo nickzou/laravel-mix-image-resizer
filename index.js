@@ -6,6 +6,7 @@ const sharp = require('sharp')
 const imageSize = require('image-size')
 const imagemin = require('imagemin')
 const imageminJpegtran = require('imagemin-jpegtran')
+const imageminMozjpeg = require('imagemin-mozjpeg')
 const imageminPngquant = require('imagemin-pngquant')
 const imageminWebp = require('imagemin-webp')
 
@@ -23,6 +24,9 @@ const defaultOptions = {
         1600
     ],
     webp: true,
+    imageminMozjpegOptions: {
+        quality: 80
+    },
     imageminPngquantOptions: {
         quality: [0.3, 0.5]
     },
@@ -39,6 +43,7 @@ class ImageResizer {
             from,
             to,
             webp,
+            imageminMozjpegOptions,
             imageminPngquantOptions,
             imageminWebpOptions,
         } = Object.assign(defaultOptions, extraOptions)
@@ -72,7 +77,7 @@ class ImageResizer {
             imagemin([imagePath, dir + '/' + name + '-resized-*'], {
                 destination: dir,
                 plugins: [
-                    imageminJpegtran(),
+                    imageminMozjpeg(imageminMozjpegOptions),
                     imageminPngquant(imageminPngquantOptions),
                 ],
             })
