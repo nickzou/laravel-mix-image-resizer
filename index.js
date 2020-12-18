@@ -63,15 +63,6 @@ class ImageResizer {
             }
 
             let {root, dir, base, ext, name} = path.parse(imagePath)
-            let width = imageSize(imagePath).width
-            sizes.forEach((w) => {
-                if (width < w) {
-                    return
-                }
-                sharp(imagePath)
-                    .resize(w)
-                    .toFile(dir + '/' + name + '-resized-' + w + ext)
-            })
 
             imagemin([imagePath, dir + '/' + name + '-resized-*'], {
                 destination: dir,
@@ -89,6 +80,16 @@ class ImageResizer {
                     ],
                 })
             }
+
+            let width = imageSize(imagePath).width
+            sizes.forEach((w) => {
+                if (width < w) {
+                    return
+                }
+                sharp(imagePath)
+                    .resize(w)
+                    .toFile(dir + '/' + name + '-resized-' + w + ext)
+            })
         })
     }
 }
